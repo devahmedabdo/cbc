@@ -14,8 +14,10 @@ export class CommentComponent {
     MCV: 'Normal',
     MCH: 'Normal',
     WBCs: 'Normal',
+    RDW: 'Normal',
     Neutrophils: 'Normal',
     Monocytes: 'Normal',
+    Lymphocytes: 'Normal',
     Eosinophils: 'Normal',
     PLT: 'Normal',
   };
@@ -32,6 +34,11 @@ export class CommentComponent {
     {
       name: 'MCH',
       values: ['Normal', 'Low', 'High'],
+    },
+    {
+      name: 'RDW',
+      values: ['Normal', 'Low', 'High'],
+      sep: true,
     },
     {
       name: 'WBCs',
@@ -60,6 +67,7 @@ export class CommentComponent {
     {
       name: 'Eosinophils',
       values: ['Normal', 'High'],
+      sep: true,
     },
     {
       name: 'PLT',
@@ -131,6 +139,7 @@ export class CommentComponent {
     if (
       cbc.WBCs != 'Normal' ||
       cbc.Neutrophils != 'Normal' ||
+      cbc.Lymphocytes != 'Normal' ||
       cbc.Monocytes != 'Normal' ||
       cbc.WBCs != 'Normal' ||
       cbc.Eosinophils != 'Normal'
@@ -141,14 +150,16 @@ export class CommentComponent {
         wbcsComment += `total ${
           this.wbcs[cbc.WBCs.slice(cbc.WBCs.indexOf('-') + 1)]
         } and `;
-      } else {
-        wbcsComment += `
-        ${this.lymphocytes[cbc.Lymphocytes]}
-        ${this.neutrophils[cbc.Neutrophils]}
-        ${this.neutrophils[cbc.Monocytes]}
-        ${this.neutrophils[cbc.Eosinophils]}
-        `;
       }
+      // console.log();
+      wbcsComment += `${
+        cbc.WBCs.slice(cbc.WBCs.indexOf('-') + 1) == 'Low'
+          ? 'absolute'
+          : 'relative'
+      } ${this.lymphocytes[cbc.Lymphocytes]} ${
+        this.neutrophils[cbc.Neutrophils]
+      } ${this.monocytes[cbc.Monocytes]} ${this.eosinophils[cbc.Eosinophils]}
+        `;
 
       // pltComment += `* PLTs Show ${cbc.PLT} ${this.plt[cbc.MCV]} ${
       //   this.mch[cbc.MCH]
