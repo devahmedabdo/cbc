@@ -1,0 +1,46 @@
+<div style="background-color: #e8e8e8;min-height: 100vh;">
+  <div class="container">
+    <div class="flex justify-between gap-2 mb-6">
+      <h1 class="font-bold text-xl">CBC Comment</h1>
+      <button class="btn" (click)="generate(cbc)">Generate</button>
+    </div>
+    @for (item of labels; track $index) {
+    <h2 class="font-bold mt-4 mb-1">{{item.name}}</h2>
+    <div class="radio-inputs">
+      @for (v of item.values; track $index) {
+      <label class="radio" for="{{item.name}}-{{v}}">
+
+        <input type="radio" name="{{item.name}}" id="{{item.name}}-{{v}}" value="{{v}}" [(ngModel)]="cbc[item.name]">
+
+        <span class="name">{{v}}</span>
+      </label>
+      }
+    </div>
+    }
+    @if (comment) {
+    <hr class="my-10 border-neutral-300">
+    <div>
+
+    </div>
+    <button class="btn" (click)="copy()">Copy</button>
+    <div [innerHTML]="comment" class="radio-inputs !p-4 mt-4 whitespace-pre">
+    </div>
+    }
+  </div>
+
+</div>
+<!-- </div> -->
+<!-- 
+
+  <label class="radio">
+    <input type="radio" name="radio" checked="" />
+    
+  </label>
+  <label class="radio">
+    <input type="radio" name="radio" />
+    <span class="name">Second</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="radio" />
+    <span class="name">Third</span>
+  </label> -->
