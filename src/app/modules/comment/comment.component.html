@@ -1,6 +1,6 @@
-<div style="background-color: #e8e8e8;min-height: 100vh;">
+<div class="bg-neutral-200 min-h-screen">
   <div class="container">
-    <div class="flex justify-between gap-2 mb-6">
+    <div class="flex justify-between gap-2 mb-6 sticky top-0 z-10 bg-neutral-200 py-4">
       <h1 class="font-bold text-xl">CBC Comment</h1>
       <button class="btn" (click)="generate(cbc)">Generate</button>
     </div>
@@ -20,30 +20,58 @@
     <hr class="my-6 border-neutral-300">
     }
     }
-    @if (comment) {
+    @if (comment.anemia ||comment.wbcs ||comment.plt) {
     <hr class="my-10 border-neutral-300">
-    <div>
-
+    <button class="btn ms-auto block" (click)="copy()">Copy</button>
+    <div class="radio-inputs !p-4 mt-4">
+      <p class="w-full font-medium">{{comment.anemia}}</p>
+      <p class="w-full font-medium">{{comment.wbcs}}</p>
+      <p class="w-full font-medium">{{comment.plt}}</p>
     </div>
-    <button class="btn" (click)="copy()">Copy</button>
-    <div [innerHTML]="comment" class="radio-inputs !p-4 mt-4 whitespace-pre">
+    }
+    
+    @if (patientComment.anemia ||patientComment.wbcs ||patientComment.plt) {
+    <hr class="my-10 border-neutral-300">
+    
+    <div class="radio-inputs !p-4 mt-4" dir="rtl">
+      @if(patientComment.anemia){
+      <span class="font-bold text-xl w-full">
+        وجود انيما
+      </span>
+      <p>
+    
+    
+        السبب المحتمل {{patientComment.anemia.exp}} <br>
+        توضيح : {{patientComment.anemia.type}}
+      </p>
+      }
+      @if(patientComment.wbcs){
+      <span class="font-bold text-xl w-full">
+        قيم غير طبيعة لكرات الدم البيضاء
+      </span>
+    
+      <p>
+        السبب المحتمل {{patientComment.wbcs.type}} <br>
+        توضيح : {{patientComment.wbcs.exp}}
+        </p>
+        }
+        @if(patientComment.plt){
+        <span class="font-bold text-xl w-full">
+          قيم غير طبيعة للصفائح الدموية
+        </span>
+        <p>
+          السبب المحتمل {{patientComment.plt.type}} <br>
+          توضيح : {{patientComment.plt.exp}}
+        </p>
+        }
+    </div>
+    }
+    
+    @if(normal){
+    <div class="radio-inputs !p-4 mt-4" dir="rtl">
+      {{normal}}
     </div>
     }
   </div>
 
 </div>
-<!-- </div> -->
-<!-- 
-
-  <label class="radio">
-    <input type="radio" name="radio" checked="" />
-    
-  </label>
-  <label class="radio">
-    <input type="radio" name="radio" />
-    <span class="name">Second</span>
-  </label>
-  <label class="radio">
-    <input type="radio" name="radio" />
-    <span class="name">Third</span>
-  </label> -->
