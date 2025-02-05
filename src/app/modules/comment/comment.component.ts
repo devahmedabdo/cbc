@@ -24,6 +24,7 @@ export class CommentComponent {
     PLT: 'Normal',
   };
 
+  year: number = new Date().getFullYear();
   labels: any[] = [
     {
       name: 'Anemia',
