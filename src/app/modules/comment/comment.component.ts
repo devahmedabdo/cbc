@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject } from '@angular/core';
+import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CommentService } from './comment.service';
@@ -9,7 +9,7 @@ import { CommentService } from './comment.service';
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.scss',
 })
-export class CommentComponent {
+export class CommentComponent implements OnInit {
   services = inject(CommentService);
   cbc: any = {
     Anemia: 'Normal',
@@ -132,6 +132,9 @@ export class CommentComponent {
     wbcs: '',
     plt: '',
   };
+  ngOnInit(): void {
+    this.generate(this.cbc);
+  }
   generate(cbc: any, ele?: ElementRef) {
     this.normal = '';
     this.patientComment = {
@@ -221,7 +224,9 @@ export class CommentComponent {
   }
 
   copy() {
-    navigator.clipboard.writeText(this.comment.anemia+'\n' + this.comment.wbcs +'\n'+this.comment.plt);
+    navigator.clipboard.writeText(
+      this.comment.anemia + '\n' + this.comment.wbcs + '\n' + this.comment.plt
+    );
     Swal.fire({
       icon: 'success',
       title: 'Coppied',
