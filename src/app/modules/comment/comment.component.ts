@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CommentService } from './comment.service';
@@ -132,7 +132,7 @@ export class CommentComponent {
     wbcs: '',
     plt: '',
   };
-  generate(cbc: any) {
+  generate(cbc: any, ele?: ElementRef) {
     this.normal = '';
     this.patientComment = {
       anemia: null,
@@ -209,7 +209,9 @@ export class CommentComponent {
       } ${this.monocytes[cbc.Monocytes]} ${this.eosinophils[cbc.Eosinophils]}
         `;
     }
-
+    document.getElementById('comment')?.scrollIntoView({
+      behavior: 'smooth',
+    });
     let comment_value: string[] = Object.values(this.comment);
     if (comment_value.every((e) => e == '')) {
       this.comment.anemia =
