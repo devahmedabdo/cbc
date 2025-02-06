@@ -221,7 +221,7 @@ export class CommentComponent {
   }
 
   copy() {
-    navigator.clipboard.writeText(this.comment);
+    navigator.clipboard.writeText(this.comment.anemia+'\n' + this.comment.wbcs +'\n'+this.comment.plt);
     Swal.fire({
       icon: 'success',
       title: 'Coppied',
